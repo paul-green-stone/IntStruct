@@ -9,6 +9,7 @@ extern "C" {
 #include <stdlib.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <string.h>
 
 /* ================================================================ */
 
@@ -77,6 +78,40 @@ static inline void set_bit(void* mem_reg, size_t num_bytes, int bit) {
     if (bit == 0) { return ; }
 
     *((unsigned char*) mem_reg) |= (1 << ((bit >= CHAR_BIT) ? 7 : bit - 1));
+}
+
+/**
+ * 
+ */
+static inline void clear_bit(void* mem_reg, size_t num_bytes, int bit) {
+
+    if (bit == 0) { return ; }
+
+    *((unsigned char*) mem_reg) &= ~(1 << ((bit >= CHAR_BIT) ? 7 : bit - 1));
+}
+
+/**
+ * 
+ */
+static inline void log_as_bytesV(const void* mem_reg, size_t num_bytes) {
+
+    for (size_t i = 0; i < num_bytes; i++) {
+        printf("Address: %p\n", mem_reg + i);
+        printf("Value  : ");
+        log_as_bytes(mem_reg + i, sizeof(unsigned char));
+    }
+}
+
+/**
+ * 
+ */
+static inline void log_as_bitsV(const void* mem_reg, size_t num_bytes) {
+
+    for (size_t i = 0; i < num_bytes; i++) {
+        printf("Address: %p\n", mem_reg + i);
+        printf("Value  : ");
+        log_as_bits(mem_reg + i, sizeof(unsigned char));
+    }
 }
 
 /* ================================================================ */

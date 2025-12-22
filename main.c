@@ -5,12 +5,14 @@
 int main(int argc, char** argv) {
 
     short a = 0x010A;
+    short* ap = &a;
 
-    log_as_bytes(&a, sizeof(a));
-    log_as_bits(&a, sizeof(a));
+    log_as_bytesV(&a, sizeof(a));
 
-    set_bit((unsigned char*) &a + 1, sizeof(a), 14);
-    log_as_bits(&a, sizeof(a));
+    printf("\n");
+
+    log_as_bytesV(&ap, sizeof(ap));
+    printf("%p\n", &a);
 
     /* ======== */
     return EXIT_SUCCESS;
